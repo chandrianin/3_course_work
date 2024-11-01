@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "BFUHelper"
 include(":app")
- 
+

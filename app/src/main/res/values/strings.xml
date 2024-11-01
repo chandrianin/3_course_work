@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Помощник</string>
+    <string name="menu_schedule">Расписание</string>
+    <string name="menu_sport">Физкультура</string>
+    <string name="menu_email">Почта</string>
 </resources>
