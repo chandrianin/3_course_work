@@ -52,7 +52,7 @@ dependencies {
 
     implementation(libs.room.ktx)
 
-    ksp(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
