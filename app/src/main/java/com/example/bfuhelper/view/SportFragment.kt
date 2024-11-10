@@ -29,6 +29,7 @@ class SportFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[SportViewModel::class.java]
 
         binding.sportViewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         return view
     }
 

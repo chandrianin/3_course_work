@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [SportItem::class], version = 3, exportSchema = false)
+@Database(entities = [SportItem::class], version = 1, exportSchema = false)
 abstract class SportDataBase : RoomDatabase() {
     abstract val sportDao: SportDao
 
