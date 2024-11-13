@@ -16,7 +16,7 @@ class SportViewModel(private val dao: SportDao) : ViewModel() {
     private val allItems = dao.getAll()
     val allItemsString = allItems.map { formatData() }
 
-    private val septItems = dao.getByMonth(Month.Oct.text())
+    private val septItems = dao.getByMonth(Month.Oct)
     val septItemsString = septItems.map {
         it.fold("${Month.Oct.text()}: ") { str, item ->
             str + " ${item.day}"
@@ -44,9 +44,9 @@ class SportViewModel(private val dao: SportDao) : ViewModel() {
         viewModelScope.launch {
             val item =
                 SportItem(
-                    Month.Nov.ordinal.toByte(),
+                    Month.Nov,
                     newDay.value?.toByte() ?: 0,
-                    Status.Future.ordinal.toByte()
+                    Status.Future
                 )
             dao.insert(item)
         }

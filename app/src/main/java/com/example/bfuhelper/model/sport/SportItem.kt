@@ -10,39 +10,26 @@ import androidx.room.PrimaryKey
  *
  * Запись соответствует занятию по физкультуре.
  * Класс необходим для хранения данных о посещениях студента.
- * Использование типа Byte снижением веса БД на 45%
  *
  * Пример использования:
  * ```
  * val item = SportItem(
- *                 Month.Nov.ordinal.toByte(),
+ *                 Month.Nov,
  *                 30,
- *                 Status.Future.ordinal.toByte()
+ *                 Status.Future
  *                 )
- * val month = Month.entries[item.month.toInt]
+ * val month = item.month
  * val day = item.day.toInt
- * val status = item.status.toInt
+ * val status = item.status
  *```
  * */
 data class SportItem(
-    /**
-     * Ordinal элемента enum-класса [Month]
-     *
-     * Например, значение 0 должно быть проассоциировано с [Month.Jan]
-     * */
-    var month: Byte,
 
-    /**
-     * Номер дня месяца [month]
-     * */
+    var month: Month,
+
     var day: Byte,
 
-    /**
-     * Ordinal элемента enum-класса [Status]
-     *
-     * Например, значение 0 должно быть проассоциировано с [Status.Absence]
-     * */
-    var status: Byte,
+    var status: Status,
 
     @PrimaryKey(autoGenerate = true)
     val dayID: Long = 0

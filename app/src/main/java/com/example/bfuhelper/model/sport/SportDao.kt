@@ -41,25 +41,25 @@ interface SportDao {
     suspend fun delete(item: SportItem)
 
     @Query("SELECT * FROM sport_table WHERE dayID=:targetId")
-    /**
-     * Функция для получения записи БД [sport_table][SportItem]
-     * @param targetId Long. Функция будет искать запись с таким же [dayID][SportItem.dayID]
-     * @return `LiveData<SportItem>`. *Не использовать его в suspend-функциях*
-     * */
+            /**
+             * Функция для получения записи БД [sport_table][SportItem]
+             * @param targetId Long.
+             * @return `LiveData<SportItem>`. Функция будет искать запись с таким же [dayID][SportItem.dayID] *Не использовать его в suspend-функциях*
+             * */
     fun getById(targetId: Long): LiveData<SportItem>
 
     @Query("SELECT * FROM sport_table WHERE month=:targetMonth ORDER BY day ASC")
-    /**
-     * Функция для получения списка записей БД [sport_table][SportItem]
-     * @param targetMonth Long. Функция будет искать объекты с таким же [month][SportItem.month]
-     * @return `LiveData<List<SportItem>>`. Список будет составлен по убыванию [day][SportItem.day]. *Не использовать его в suspend-функциях*
-     * */
-    fun getByMonth(targetMonth: String): LiveData<List<SportItem>>
+            /**
+             * Функция для получения списка записей БД [sport_table][SportItem]
+             * @param targetMonth Month.
+             * @return `LiveData<List<SportItem>>`. Функция будет искать объекты с таким же [month][SportItem.month]. Список будет составлен по убыванию [day][SportItem.day]. *Не использовать его в suspend-функциях*
+             * */
+    fun getByMonth(targetMonth: Month): LiveData<List<SportItem>>
 
     @Query("SELECT * FROM sport_table ORDER BY dayID DESC")
-    /**
-     * Функция для получения всех записей БД [sport_table][SportItem]
-     * @return объект `LiveData<SportItem>`. Список будет составлен по убыванию [dayId][SportItem.dayID]. *Не использовать его в suspend-функциях*
-     * */
+            /**
+             * Функция для получения всех записей БД [sport_table][SportItem]
+             * @return объект `LiveData<SportItem>`. Список будет составлен по убыванию [dayId][SportItem.dayID]. *Не использовать его в suspend-функциях*
+             * */
     fun getAll(): LiveData<List<SportItem>>
 }

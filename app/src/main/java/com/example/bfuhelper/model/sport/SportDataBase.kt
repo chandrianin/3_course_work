@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [SportItem::class], version = 1, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class SportDataBase : RoomDatabase() {
     abstract val sportDao: SportDao
 
@@ -20,7 +22,7 @@ abstract class SportDataBase : RoomDatabase() {
                     context.applicationContext,
                     SportDataBase::class.java,
                     "sport_database"
-                ).build()
+                ).addTypeConverter(Converters()).build()
                 INSTANCE = instance
             }
             return instance
