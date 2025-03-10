@@ -42,6 +42,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.converter.scalars)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.androidx.navigation.fragment.ktx)

@@ -1,6 +1,5 @@
 package com.example.bfuhelper.model.sport
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -40,26 +39,30 @@ interface SportDao {
      * */
     suspend fun delete(item: SportItem)
 
-    @Query("SELECT * FROM sport_table WHERE dayID=:targetId")
+    @Query("SELECT * FROM sport_table WHERE month=:targetMonth & day=:targetDay")
             /**
              * Функция для получения записи БД [sport_table][SportItem]
-             * @param targetId Long.
-             * @return `LiveData<SportItem>`. Функция будет искать запись с таким же [dayID][SportItem.dayID] *Не использовать его в suspend-функциях*
+             * @param targetMonth Month
+             * @param targetDay Byte
+             * @return `LiveData<SportItem>`. Функция будет искать запись с такими же [month][SportItem.month] и [day][SportItem.day]
              * */
-    fun getById(targetId: Long): LiveData<SportItem>
+    fun getByMonthAndDay(targetMonth: Month, targetDay: Byte): SportItem
 
     @Query("SELECT * FROM sport_table WHERE month=:targetMonth ORDER BY day ASC")
             /**
              * Функция для получения списка записей БД [sport_table][SportItem]
              * @param targetMonth Month.
-             * @return `LiveData<List<SportItem>>`. Функция будет искать объекты с таким же [month][SportItem.month]. Список будет составлен по убыванию [day][SportItem.day]. *Не использовать его в suspend-функциях*
+             * @return `LiveData<List<SportItem>>`. Функция будет искать объекты с таким же [month][SportItem.month]. Список будет составлен по убыванию [day][SportItem.day].
              * */
-    fun getByMonth(targetMonth: Month): LiveData<List<SportItem>>
+    fun getByMonth(targetMonth: Month): List<SportItem>
 
-    @Query("SELECT * FROM sport_table ORDER BY dayID DESC")
+    @Query("SELECT * FROM sport_table ORDER BY month DESC")
             /**
              * Функция для получения всех записей БД [sport_table][SportItem]
-             * @return объект `LiveData<SportItem>`. Список будет составлен по убыванию [dayId][SportItem.dayID]. *Не использовать его в suspend-функциях*
+             * @return объект `LiveData<SportItem>`. Список будет составлен по убыванию [dayId][SportItem.day].
              * */
-    fun getAll(): LiveData<List<SportItem>>
+    fun getAll(): List<SportItem>
+
+    @Query("SELECT (SELECT COUNT(*) FROM sport_table) == 0")
+    fun isEmpty(): Boolean
 }

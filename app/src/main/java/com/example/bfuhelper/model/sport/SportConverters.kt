@@ -4,7 +4,7 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 
 @ProvidedTypeConverter
-class Converters {
+class SportConverters {
     @TypeConverter
     fun monthToByte(month: Month): Byte {
         return month.ordinal.toByte()

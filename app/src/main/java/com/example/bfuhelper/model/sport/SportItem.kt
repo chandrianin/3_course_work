@@ -1,10 +1,8 @@
 package com.example.bfuhelper.model.sport
 
 import androidx.room.Entity
-import androidx.room.PrimaryKey
 
 
-@Entity(tableName = "sport_table")
 /**
  * Шаблон элемента таблицы БД "Sport_table"
  *
@@ -23,6 +21,10 @@ import androidx.room.PrimaryKey
  * val status = item.status
  *```
  * */
+@Entity(
+    tableName = "sport_table",
+    primaryKeys = ["day", "month"]
+)
 data class SportItem(
 
     var month: Month,
@@ -31,6 +33,6 @@ data class SportItem(
 
     var status: Status,
 
-    @PrimaryKey(autoGenerate = true)
-    val dayID: Long = 0
+//    @PrimaryKey(autoGenerate = true)
+//    val dayID: Long = 0
 )

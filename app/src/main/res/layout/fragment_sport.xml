@@ -10,56 +10,105 @@
             type="com.example.bfuhelper.viewModel.SportViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.SportFragment">
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/sport_test_edit"
+        <TextView
+            style="@style/headline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:autofillHints="no"
-            android:hint="Статус"
-            android:inputType="text"
-            android:minHeight="48dp"
-            android:text="@={sportViewModel.newDay}"
-            android:textColorHint="#546E7A"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="6dp"
+            android:text="@string/menu_sport" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/materialButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:onClick="@{()->sportViewModel.testFun()}"
-            android:text="NewTestSport"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sport_test_edit" />
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".view.SportFragment">
 
-        <TextView
-            android:id="@+id/sport_all_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="16dp"
-            android:text="@{sportViewModel.allItemsString}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/sport_months_text"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{sportViewModel.septItemsString}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/sport_all_text"
-            app:layout_constraintTop_toTopOf="@+id/sport_all_text" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/sport_top_rectangle"
+                    android:padding="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="test"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </TextView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+
+    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        tools:context=".view.SportFragment">-->
+
+    <!--        <EditText-->
+    <!--            android:id="@+id/sport_test_edit"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="16dp"-->
+    <!--            android:layout_marginTop="16dp"-->
+    <!--            android:autofillHints="no"-->
+    <!--            android:hint="Статус"-->
+    <!--            android:inputType="text"-->
+    <!--            android:minHeight="48dp"-->
+    <!--            android:text="{sportViewModel.newDay}"-->
+    <!--            android:textColorHint="#546E7A"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+    <!--        <com.google.android.material.button.MaterialButton-->
+    <!--            android:id="@+id/materialButton"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="16dp"-->
+    <!--            android:layout_marginTop="16dp"-->
+    <!--            android:onClick="@{()->sportViewModel.testFun()}"-->
+    <!--            android:text="NewTestSport"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/sport_test_edit" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/sport_all_text"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="0dp"-->
+    <!--            android:layout_marginTop="16dp"-->
+    <!--            android:text="@{sportViewModel.allItemsString}"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/materialButton" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/sport_months_text"-->
+    <!--            android:layout_width="0dp"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginStart="8dp"-->
+    <!--            android:layout_marginEnd="8dp"-->
+    <!--            android:text="{sportViewModel.septItemsString}"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toEndOf="@+id/sport_all_text"-->
+    <!--            app:layout_constraintTop_toTopOf="@+id/sport_all_text" />-->
+    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 </layout>
