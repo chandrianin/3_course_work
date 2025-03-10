@@ -3,4 +3,8 @@
     <string name="menu_schedule">Расписание</string>
     <string name="menu_sport">Физкультура</string>
     <string name="menu_email">Почта</string>
+    <string name="sportCanvas">Круги посещений и баллов</string>
+    <string name="scores">Баллы</string>
+    <string name="comings">Посещения</string>
+    <string name="sport_canvas_button">Подробнее</string>
 </resources>
