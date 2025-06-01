@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Helper</string>
+    <string name="menu_schedule">Schedule</string>
+    <string name="menu_sport">Sport</string>
+    <string name="menu_email">Email</string>
+    <string name="sportCanvas">Circle</string>
+    <string name="scores">Scores</string>
+    <string name="comings">Comings</string>
+    <string name="sport_canvas_button">More</string>
+</resources>

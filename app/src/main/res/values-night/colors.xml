@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="primary">#331F90</color>
+    <color name="dark">#FCF8FF</color>
+    <color name="light">#141318</color>
     <color name="status_bar">#331F90</color>
+    <color name="primary">#4129AB</color>
+    <color name="surface">#18171D</color>
+    <color name="scores_primary">#4528AB</color>
+    <color name="scores_transparent">#9924135F</color>
+    <color name="comings_primary">#24541A</color>
+    <color name="comings_transparent">#991A3B13</color>
+    <color name="button_text">#E6201251</color>
+    <color name="refresh_indicator">#242129</color>
 </resources>

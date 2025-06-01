@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularProgressView">
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="backgroundColor" format="color" />
+        <attr name="progressColor" format="color" />
+        <attr name="progress" format="float" />
+        <attr name="maxProgress" format="float" />
+
+        <attr name="innerStrokeWidth" format="dimension" />
+        <attr name="innerBackgroundColor" format="color" />
+        <attr name="innerProgressColor" format="color" />
+        <attr name="innerProgress" format="float" />
+        <attr name="innerMaxProgress" format="float" />
+
+        <attr name="animationDuration" format="integer"/>
+
+        <attr name="circleSpacing" format="dimension" />
+    </declare-styleable>
+</resources>

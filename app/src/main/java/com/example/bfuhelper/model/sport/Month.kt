@@ -6,7 +6,7 @@ enum class Month : EnumsText {
             return "Январь"
         }
     },
-    Febr {
+    Feb {
         override fun text(): String {
             return "Февраль"
         }

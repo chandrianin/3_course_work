@@ -33,35 +33,58 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="16dp"
                     android:background="@drawable/sport_top_rectangle"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="24dp"
+                    android:paddingHorizontal="15dp"
                     android:paddingVertical="9dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
+                    <com.example.bfuhelper.view.CircularProgressView
+                        android:id="@+id/scores_progress_view"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/sportCanvas"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/sport_canvas" />
+                        android:layout_height="0dp"
+
+                        app:animationDuration="1000"
+
+                        app:backgroundColor="@color/scores_transparent"
+                        app:circleSpacing="10dp"
+                        app:innerBackgroundColor="@color/comings_transparent"
+                        app:innerMaxProgress="@{sportViewModel.maxVisits}"
+                        app:innerProgress="@{sportViewModel.visits}"
+
+                        app:innerProgressColor="@color/comings_primary"
+                        app:innerStrokeWidth="15dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toStartOf="@+id/linearLayout_text_container"
+
+                        app:layout_constraintHorizontal_weight="1"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:maxProgress="@{sportViewModel.maxScores}"
+                        app:progress="@{sportViewModel.scores}"
+                        app:progressColor="@color/scores_primary"
+                        app:strokeWidth="15dp" />
 
                     <LinearLayout
+                        android:id="@+id/linearLayout_text_container"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1.1"
-                        android:orientation="vertical">
+                        android:layout_marginStart="15dp"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@+id/scores_progress_view"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
                             style="@style/sport_canvas_results_label"
@@ -69,21 +92,16 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:text="@string/scores"
-                            android:textColor="@color/sport_canvas_scores"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
+                            android:textColor="@color/scores_primary" />
 
                         <TextView
+                            android:id="@+id/scores_text_view"
                             style="@style/sport_canvas_results_values"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="-5dp"
-                            android:text="0/0"
-                            android:textColor="@color/sport_canvas_scores"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:textColor="@color/scores_primary" />
 
                         <TextView
                             style="@style/sport_canvas_results_label"
@@ -92,86 +110,29 @@
                             android:layout_gravity="center"
                             android:layout_marginTop="13dp"
                             android:text="@string/comings"
-                            android:textColor="@color/sport_canvas_comings"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:textColor="@color/comings_primary" />
 
                         <TextView
+                            android:id="@+id/comings_text_view"
                             style="@style/sport_canvas_results_values"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginTop="-5dp"
-                            android:text="0/0"
-                            android:textColor="@color/sport_canvas_comings"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:textColor="@color/comings_primary" />
 
                         <Button
                             style="@style/sport_canvas_button"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="13dp"
-                            android:singleLine="true"
                             android:paddingHorizontal="5dp"
+                            android:singleLine="true"
                             android:text="@string/sport_canvas_button" />
                     </LinearLayout>
-                </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </LinearLayout>
-
-    <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        tools:context=".view.SportFragment">-->
-
-    <!--        <EditText-->
-    <!--            android:id="@+id/sport_test_edit"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="16dp"-->
-    <!--            android:layout_marginTop="16dp"-->
-    <!--            android:autofillHints="no"-->
-    <!--            android:hint="Статус"-->
-    <!--            android:inputType="text"-->
-    <!--            android:minHeight="48dp"-->
-    <!--            android:text="{sportViewModel.newDay}"-->
-    <!--            android:textColorHint="#546E7A"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toTopOf="parent" />-->
-
-    <!--        <com.google.android.material.button.MaterialButton-->
-    <!--            android:id="@+id/materialButton"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="16dp"-->
-    <!--            android:layout_marginTop="16dp"-->
-    <!--            android:onClick="@{()->sportViewModel.testFun()}"-->
-    <!--            android:text="NewTestSport"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/sport_test_edit" />-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/sport_all_text"-->
-    <!--            android:layout_width="wrap_content"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="0dp"-->
-    <!--            android:layout_marginTop="16dp"-->
-    <!--            android:text="@{sportViewModel.allItemsString}"-->
-    <!--            app:layout_constraintStart_toStartOf="parent"-->
-    <!--            app:layout_constraintTop_toBottomOf="@+id/materialButton" />-->
-
-    <!--        <TextView-->
-    <!--            android:id="@+id/sport_months_text"-->
-    <!--            android:layout_width="0dp"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_marginStart="8dp"-->
-    <!--            android:layout_marginEnd="8dp"-->
-    <!--            android:text="{sportViewModel.septItemsString}"-->
-    <!--            app:layout_constraintEnd_toEndOf="parent"-->
-    <!--            app:layout_constraintStart_toEndOf="@+id/sport_all_text"-->
-    <!--            app:layout_constraintTop_toTopOf="@+id/sport_all_text" />-->
-    <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
 </layout>

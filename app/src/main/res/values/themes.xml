@@ -1,15 +1,13 @@
 <resources>
-    <!-- Base application theme. -->
+
     <style name="Base.Theme.BFUHelper" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!--        <item name="colorPrimary">@color/primary</item>-->
-        <!--        <item name="android:statusBarColor">@color/status_bar</item>-->
 
     </style>
 
     <style name="Theme.BFUHelper" parent="Base.Theme.BFUHelper">
         <item name="colorPrimary">@color/primary</item>
         <item name="android:statusBarColor">@color/status_bar</item>
+        <item name="android:navigationBarColor">@color/light</item>
 
     </style>
 
@@ -22,22 +20,22 @@
     </style>
 
     <style name="sport_canvas_results_label" parent="Theme.BFUHelper">
-        <item name="android:textSize">19sp</item>
+        <item name="android:textSize">21sp</item>
         <item name="android:letterSpacing">0.02</item>
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">@font/roboto_regular</item>
     </style>
 
     <style name="sport_canvas_results_values" parent="Theme.BFUHelper">
-        <item name="android:textSize">19sp</item>
+        <item name="android:textSize">21sp</item>
         <item name="android:letterSpacing">0.02</item>
         <item name="android:textStyle">normal</item>
         <item name="fontFamily">@font/roboto_black</item>
     </style>
 
     <style name="sport_canvas_button" parent="Theme.BFUHelper">
-        <item name="android:backgroundTint">@color/button_background</item>
-        <item name="android:textColor">@color/primary</item>
+        <item name="android:backgroundTint">@color/scores_primary</item>
+        <item name="android:textColor">@color/button_text</item>
         <item name="android:textSize">16sp</item>
         <item name="fontFamily">@font/roboto_bold</item>
     </style>
