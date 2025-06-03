@@ -53,6 +53,19 @@ dependencies {
 
     implementation(libs.room.ktx)
 
+    // Retrofit
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson.v290) // Для JSON (LoginResponse)
+    implementation (libs.okhttp) // OkHttp
+    implementation (libs.logging.interceptor) // Для логирования сетевых запросов (очень полезно для отладки)
+
+    // Jsoup для парсинга HTML
+    implementation (libs.jsoup) // Актуальная версия на момент написания
+
+    // Kotlin Coroutines
+    implementation (libs.kotlinx.coroutines.core)
+    implementation (libs.kotlinx.coroutines.android)
+
     kapt(libs.androidx.room.compiler)
 
     implementation(libs.androidx.core.ktx)

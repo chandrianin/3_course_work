@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Интерфейс доступа к записям БД [sport_table][SportItem]
@@ -65,4 +66,14 @@ interface SportDao {
 
     @Query("SELECT (SELECT COUNT(*) FROM sport_table) == 0")
     fun isEmpty(): Boolean
+
+    @Query("DELETE FROM sport_table")
+    fun deleteAll()
+
+    @Update
+    suspend fun updateAll(items: List<SportItem>)
+
+    // Возвращаем Flow для реактивных обновлений UI
+    @Query("SELECT * FROM sport_table ORDER BY month, day")
+    fun getAllFlow(): Flow<List<SportItem>> // Изменено на Flow
 }
