@@ -1,5 +1,6 @@
 package com.example.bfuhelper.model.sport.api
 
+import com.example.bfuhelper.model.network.CustomCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -30,6 +31,7 @@ class RetrofitClient {
         OkHttpClient.Builder()
             .addInterceptor(logging)
             // .addInterceptor(CsrfInterceptor { /* TODO: Implement a mechanism to retrieve the CSRF token, e.g., from SharedPreferences */ })
+            .cookieJar(CustomCookieJar())
             .build()
     }
 
