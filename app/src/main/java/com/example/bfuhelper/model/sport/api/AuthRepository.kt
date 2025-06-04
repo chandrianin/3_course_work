@@ -1,6 +1,7 @@
 package com.example.bfuhelper.model.sport.api
 
 import android.util.Log
+import androidx.core.net.ParseException
 import com.example.bfuhelper.model.sport.Month
 import com.example.bfuhelper.model.sport.SportItem
 import com.example.bfuhelper.model.sport.Status
@@ -31,12 +32,11 @@ class AuthRepository {
     private val _csrfToken = AtomicReference<String?>(null)
     private val _authToken = AtomicReference<String?>(null)
 
-    private val retrofitClient: RetrofitClient by lazy { RetrofitClient() }
+    private val retrofitClient: RetrofitClient by lazy { RetrofitClient { _csrfToken.get() } }
     private val authApiService: AuthApiService by lazy { retrofitClient.authApiService }
 
     /**
      * Конструктор класса [AuthRepository].
-     * Позволяет инициализировать репозиторий с опциональными логином и паролем.
      *
      * @param username Начальное значение логина пользователя. По умолчанию null.
      * @param password Начальное значение пароля пользователя. По умолчанию null.
@@ -55,6 +55,7 @@ class AuthRepository {
     fun setCredentials(username: String, password: String) {
         _username = username
         _password = password
+        // TODO save in memory
     }
 
     /**
@@ -69,12 +70,13 @@ class AuthRepository {
                 val response = authApiService.getLoginPage()
                 if (response.isSuccessful) {
                     val html = response.body()?.string()
+                    Log.i("AuthRepository", "Get login page response: $response")
                     html?.let {
                         val document = Jsoup.parse(it)
                         val csrfInput = document.select("input[name=csrfmiddlewaretoken]").first()
                         val token = csrfInput?.attr("value")
                         _csrfToken.set(token)
-                        Log.d("AuthRepository", "CSRF Token fetched: $token")
+                        Log.i("AuthRepository", "CSRF-Token fetched: $token")
                         token
                     }
                 } else {
@@ -107,20 +109,21 @@ class AuthRepository {
             }
 
             val csrfToken = _csrfToken.get() ?: fetchCsrfToken()
+
             if (csrfToken == null) {
                 return@withContext Result.failure(Exception("Failed to obtain CSRF token."))
             }
 
             try {
                 val response = authApiService.login(username, password, csrfToken)
-
+                Log.i("AuthRepository", "Sent login POST-request")
                 if (response.isSuccessful) {
-                    Log.d("AuthRepository", "Login successful!")
+                    Log.i("AuthRepository", "Login successful!")
                     Result.success(Unit)
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("AuthRepository", "Login failed: ${response.code()} - $errorBody")
-                    Result.failure(Exception("Login failed: ${response.message()} - ${errorBody}"))
+                    Result.failure(Exception("Login failed: ${response.message()} - $errorBody"))
                 }
             } catch (e: Exception) {
                 Log.e("AuthRepository", "Login exception: ${e.message}", e)
@@ -141,7 +144,7 @@ class AuthRepository {
         return withContext(Dispatchers.IO) {
             try {
                 val response = authApiService.getSportStatsPage()
-
+                Log.i("AuthRepository", "Get statistic page response: $response")
                 if (response.isSuccessful) {
                     val html = response.body()?.string()
                     html?.let {
@@ -150,7 +153,10 @@ class AuthRepository {
                     } ?: Result.failure(Exception("Empty response body for sport stats."))
                 } else {
                     val errorBody = response.errorBody()?.string()
-                    Log.e("AuthRepository", "Failed to get sport stats: ${response.code()} - $errorBody")
+                    Log.e(
+                        "AuthRepository",
+                        "Failed to get sport stats: ${response.code()} - $errorBody"
+                    )
                     Result.failure(Exception("Failed to get sport stats: ${response.message()} - ${errorBody}"))
                 }
             } catch (e: Exception) {
@@ -172,37 +178,69 @@ class AuthRepository {
         val document = Jsoup.parse(html)
         val sportItems = mutableListOf<SportItem>()
 
+        val dateFormatWithDot = SimpleDateFormat("MMM. d,yyyy", Locale("en", "US"))
+        val dateFormatWithoutDot = SimpleDateFormat("MMM d,yyyy", Locale("en", "US"))
+
         val table = document.select("table").firstOrNull() ?: return emptyList()
 
         val rows = table.select("tr").drop(1)
-
+//        Log.d("AuthRepository", rows.toString())
         for (row in rows) {
             val columns = row.select("td")
             if (columns.size >= 5) {
                 val dateStr = columns[1].text().trim()
                 val statusStr = columns[4].text().trim()
 
+                if (dateStr.isBlank() && statusStr == "Будущее занятие") {
+                    Log.d("Parser", "Skipping empty future item")
+                    continue // Переходим к следующей строке
+                }
+
                 try {
-                    val parsedDate = SimpleDateFormat("MMM. d,yyyy", Locale("en", "US")).parse(dateStr)
-                    val calendar = java.util.Calendar.getInstance().apply {
-                        time = parsedDate
+                    var parsedDate: java.util.Date? = null
+                    try {
+                        parsedDate = dateFormatWithDot.parse(dateStr)
+                    } catch (e: Exception) {
+                        try {
+                            parsedDate = dateFormatWithoutDot.parse(dateStr)
+                        } catch (e2: ParseException) {
+                            // Если и без точки не получилось, parsedDate останется null
+                            Log.e(
+                                "Parser",
+                                "Both date formats failed for: \"$dateStr\". Error: ${e2.message}"
+                            )
+                        }
                     }
-                    val month = Month.entries[calendar.get(java.util.Calendar.MONTH)]
-                    val day = calendar.get(java.util.Calendar.DAY_OF_MONTH).toByte()
+//                    parsedDate = try {
+//                        // Попытка парсинга с точкой
+//                        dateFormatWithDot.parse(dateStr)
+//                    } catch (e: ParseException) {
+//                        // Если с точкой не получилось, пробуем без точки
+//                        dateFormatWithoutDot.parse(dateStr)
+//                    }
+                    parsedDate?.let {
+                        val calendar = java.util.Calendar.getInstance().apply {
+                            time = parsedDate
+                        }
+                        val month = Month.entries[calendar.get(java.util.Calendar.MONTH)]
+                        val day = calendar.get(java.util.Calendar.DAY_OF_MONTH).toByte()
 
-                    val status = when (statusStr) {
-                        Status.Visit.text() -> Status.Visit
-                        Status.Disease.text() -> Status.Disease
-                        Status.Future.text() -> Status.Future
-                        Status.Absence.text() -> Status.Absence
-                        else -> Status.Future
-                    }
-
-                    if (dateStr.isNotBlank() && statusStr.isNotBlank()) {
+                        val status = when (statusStr) {
+                            "Присутствовал" -> Status.Visit
+                            "Отсутствовал на занятии по уважительной причине" -> Status.Disease
+                            "Будущее занятие" -> Status.Future
+                            "Отсутствовал на занятии" -> Status.Absence
+                            else -> Status.Future
+                        }
                         sportItems.add(SportItem(month, day, status))
-                    } else if (status == Status.Future) {
-                        Log.d("Parser", "Skipping incomplete future item: $statusStr")
+                        Log.i("AuthRepository", "Parsed date: $month $day, status: $status")
+                    } ?: run {
+                        Log.e(
+                            "Parser",
+                            "Error parsing row: $dateStr, $statusStr. Error: Date parsing failed after trying both formats."
+                        )
                     }
+
                 } catch (e: Exception) {
                     Log.e("Parser", "Error parsing row: $dateStr, $statusStr. Error: ${e.message}")
                 }

@@ -1,56 +1,70 @@
 package com.example.bfuhelper.model.sport.api
 
+import android.util.Log
 import okhttp3.Cookie
 import okhttp3.CookieJar
 import okhttp3.HttpUrl
 import java.util.concurrent.ConcurrentHashMap
 
+// CustomCookieJar.kt
 class CustomCookieJar : CookieJar {
-    // ConcurrentHashMap для потокобезопасности и хранения по домену
+    private val TAG = "CustomCookieJar"
     private val cookieStore: ConcurrentHashMap<String, MutableList<Cookie>> = ConcurrentHashMap()
 
     override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-        val domain = url.host // Ключ - домен
+        val domain = url.host
+        Log.d(TAG, "Saving cookies from response for domain: $domain, URL: $url")
         val existingCookies = cookieStore.getOrPut(domain) { mutableListOf() }
-        // Удаляем старые куки с такими же именами и путями, добавляем новые
-        val newCookies = cookies.filter { newCookie ->
-            existingCookies.none { existingCookie ->
+
+        // Создаем временный список для добавления новых кук, чтобы избежать ConcurrentModificationException
+        val cookiesToAdd = mutableListOf<Cookie>()
+
+        cookies.forEach { newCookie ->
+            // Удаляем старые куки с тем же именем и путем, если они есть
+            existingCookies.removeAll { existingCookie ->
                 existingCookie.name == newCookie.name && existingCookie.path == newCookie.path
             }
-        }.toMutableList()
-        existingCookies.removeAll { existingCookie ->
-            cookies.any { newCookie ->
-                existingCookie.name == newCookie.name && existingCookie.path == newCookie.path
-            }
+            // Добавляем новую куку
+            cookiesToAdd.add(newCookie)
         }
-        existingCookies.addAll(newCookies)
-        cookieStore[domain] = existingCookies // Обновляем
+        existingCookies.addAll(cookiesToAdd)
+
+        // Можно убрать эту строку, так как existingCookies уже является ссылкой на список в ConcurrentHashMap
+        // cookieStore[domain] = existingCookies
+        cookies.forEach {
+            Log.d(TAG, "  Saved: Name=${it.name}, Value=${it.value}, Domain=${it.domain}, Path=${it.path}, Expires=${it.expiresAt}")
+        }
     }
 
     override fun loadForRequest(url: HttpUrl): List<Cookie> {
-        val domain = url.host
-        val currentCookies = cookieStore[domain]?.filter { cookie ->
-            cookie.matches(url) && !cookie.isExpired() // Проверяем, что куки подходит для URL и не истек
-        }?.toMutableList() ?: mutableListOf()
+        val allMatchingCookies = mutableListOf<Cookie>()
+        Log.d(TAG, "Loading cookies for request to domain: ${url.host}, URL: $url")
 
-        // Проверяем куки для родительских доменов
-        val parts = domain.split(".")
-        for (i in parts.indices) {
-            val subDomain = parts.subList(i, parts.size).joinToString(".")
-            if (subDomain != domain) {
-                cookieStore[subDomain]?.filter { cookie ->
-                    cookie.matches(url) && !cookie.isExpired() // Проверяем, что куки подходит для URL и не истек
-                }?.forEach { currentCookies.add(it) }
+        // Итерируем по всем доменам, для которых у нас есть куки
+        cookieStore.forEach { (domainInStore, storedCookies) ->
+            // Теперь фильтруем куки, проверяя, подходят ли они для текущего URL
+            storedCookies.filter { cookie ->
+                cookie.matches(url) && !cookie.isExpired()
+            }.forEach {
+                allMatchingCookies.add(it)
             }
         }
-        return currentCookies.distinctBy { it.name + it.path } // Убираем дубликаты
+
+        // Убираем дубликаты (например, если куки с одним именем были установлены для разных, но подходящих путей/доменов)
+        val distinctCookies = allMatchingCookies.distinctBy { it.name + it.path }
+
+        distinctCookies.forEach {
+            Log.d(TAG, "  Loaded: Name=${it.name}, Value=${it.value}, Domain=${it.domain}, Path=${it.path}, Expires=${it.expiresAt}")
+        }
+        return distinctCookies
     }
 
     // Вспомогательная функция для Cookie, чтобы определить, подходит ли он для URL
-    private fun Cookie.matches(url: HttpUrl): Boolean {
-        return (this.domain == url.host || (this.domain.startsWith(".") && url.host.endsWith(this.domain))) && // Домен
-                url.encodedPath.startsWith(this.path) // Путь
-    }
+    // Эта функция OkHttp Cookie.matches(HttpUrl url) уже учитывает домен, поддомены и пути
+    // private fun Cookie.matches(url: HttpUrl): Boolean {
+    //    return (this.domain == url.host || (this.domain.startsWith(".") && url.host.endsWith(this.domain))) && // Домен
+    //            url.encodedPath.startsWith(this.path) // Путь
+    // }
 
     // Вспомогательная функция для проверки истечения срока действия куки
     private fun Cookie.isExpired(): Boolean {

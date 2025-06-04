@@ -1,6 +1,5 @@
 package com.example.bfuhelper.model.sport.api
 
-import com.example.bfuhelper.model.network.CustomCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  * Он конфигурирует [OkHttpClient] для логирования сетевых запросов и ответов,
  * а также настраивает [Retrofit] для работы с базовым URL и конвертером JSON.
  */
-class RetrofitClient {
+class RetrofitClient(private val _csrfProvider: () -> String?) {
 
     /**
      * Лениво инициализируемый экземпляр [OkHttpClient].
@@ -20,9 +19,6 @@ class RetrofitClient {
      *
      * Включает [HttpLoggingInterceptor] с уровнем логирования [HttpLoggingInterceptor.Level.BODY]
      * для вывода детальной информации о запросах и ответах в логcat.
-     *
-     * TODO: Возможное место для добавления [CsrfInterceptor], если требуется автоматическое
-     * добавление CSRF-токена ко всем запросам, например, путем получения его из [SharedPreferences].
      */
     private val okHttpClient: OkHttpClient by lazy {
         val logging = HttpLoggingInterceptor()
@@ -30,7 +26,7 @@ class RetrofitClient {
 
         OkHttpClient.Builder()
             .addInterceptor(logging)
-            // .addInterceptor(CsrfInterceptor { /* TODO: Implement a mechanism to retrieve the CSRF token, e.g., from SharedPreferences */ })
+            .addInterceptor(CsrfInterceptor { _csrfProvider() })
             .cookieJar(CustomCookieJar())
             .build()
     }
@@ -39,12 +35,10 @@ class RetrofitClient {
      * Лениво инициализируемый экземпляр [Retrofit].
      * Конфигурирует Retrofit с базовым URL, настроенным [OkHttpClient] и
      * [GsonConverterFactory] для автоматической сериализации/десериализации JSON.
-     *
-     * TODO: Замените "https://your-base-url.com/" на реальный базовый URL вашего API.
      */
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://your-base-url.com/") // TODO: Update with your actual base URL
+            .baseUrl("https://fc.kantiana.ru/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

@@ -2,12 +2,10 @@ package com.example.bfuhelper.model.sport.api
 
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.util.concurrent.atomic.AtomicReference // Для потокобезопасного хранения токена
 
 /**
  * [CsrfInterceptor] — это перехватчик OkHttp, предназначенный для добавления CSRF-токена
- * в заголовки исходящих HTTP-запросов. Это особенно полезно для защиты от CSRF-атак
- * в веб-приложениях, где токен требуется для каждого запроса, изменяющего состояние.
+ * в заголовки исходящих HTTP-запросов.
  *
  * @property csrfTokenProvider Лямбда-функция, которая предоставляет текущий CSRF-токен.
  * Эта функция будет вызываться для получения токена перед каждым запросом.

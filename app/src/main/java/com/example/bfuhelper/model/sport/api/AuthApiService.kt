@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 /**
  * Интерфейс для взаимодействия с API аутентификации и получения данных о спортивной активности.
- * Определяет методы для выполнения HTTP-запросов, таких как получение страницы входа,
+ * Определяет методы для выполнения HTTP-запросов, таких, как получение страницы входа,
  * аутентификация пользователя и получение страницы статистики посещений.
  */
 interface AuthApiService {
@@ -19,21 +19,20 @@ interface AuthApiService {
      *
      * @return [Response] с [ResponseBody], содержащим HTML-код страницы входа.
      */
-    @GET("/login") // TODO: Проверить и исправить эндпоинт, если он неверен.
+    @GET("/login")
     suspend fun getLoginPage(): Response<ResponseBody>
 
     /**
      * Выполняет POST-запрос для аутентификации пользователя.
-     * Данные для входа (логин, пароль и CSRF-токен) отправляются в теле запроса в кодировке формы.
+     * Данные для входа (логин, пароль и CSRF-токен) отправляются в теле запроса
      *
      * @param username Логин пользователя.
      * @param password Пароль пользователя.
-     * @param csrfToken CSRF-токен, полученный со страницы входа, для защиты от межсайтовой подделки запросов.
+     * @param csrfToken CSRF-токен, полученный со страницы входа
      * @return [Response] с [ResponseBody], который может содержать HTML или быть пустым
-     * в случае успешной аутентификации (например, при редиректе).
      */
     @FormUrlEncoded
-    @POST("login") // Эндпоинт для POST-запроса авторизации.
+    @POST("/login")
     suspend fun login(
         @Field("login") username: String,
         @Field("password") password: String,
@@ -42,10 +41,9 @@ interface AuthApiService {
 
     /**
      * Выполняет GET-запрос для получения HTML-страницы со статистикой спортивных посещений.
-     * Этот запрос обычно выполняется после успешной аутентификации.
      *
      * @return [Response] с [ResponseBody], содержащим HTML-код страницы статистики.
      */
-    @GET("/student/activity") // TODO: Проверить и исправить эндпоинт, если он неверен.
+    @GET("/statistic")
     suspend fun getSportStatsPage(): Response<ResponseBody>
 }
