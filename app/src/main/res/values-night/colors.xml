@@ -2,13 +2,13 @@
 <resources>
     <color name="dark">#FCF8FF</color>
     <color name="light">#141318</color>
-    <color name="status_bar">#331F90</color>
-    <color name="primary">#4129AB</color>
+    <color name="status_bar">#453A6B</color>
+    <color name="primary">#B09BEC</color>
     <color name="surface">#18171D</color>
-    <color name="scores_primary">#4528AB</color>
-    <color name="scores_transparent">#9924135F</color>
-    <color name="comings_primary">#24541A</color>
-    <color name="comings_transparent">#991A3B13</color>
+    <color name="scores_primary">#B09BEC</color>
+    <color name="scores_transparent">#99B09BEC</color>
+    <color name="comings_primary">#6FAA7E</color>
+    <color name="comings_transparent">#996FAA7E</color>
     <color name="button_text">#E6201251</color>
     <color name="refresh_indicator">#242129</color>
 </resources>
