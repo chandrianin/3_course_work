@@ -1,49 +1,51 @@
 package com.example.bfuhelper.model.sport
 
+import com.example.bfuhelper.model.sport.api.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class SportRepository(private val dao: SportDao) {
+class SportRepository(private val sportDao: SportDao) {
+    private val authRepository: AuthRepository by lazy { AuthRepository() }
 
     suspend fun getAll(): List<SportItem> {
         return withContext(Dispatchers.IO) {
-            return@withContext dao.getAll()
+            return@withContext sportDao.getAll()
         }
     }
 
     suspend fun getByMonth(targetMonth: Month): List<SportItem> {
         return withContext(Dispatchers.IO) {
-            return@withContext dao.getByMonth(targetMonth)
+            return@withContext sportDao.getByMonth(targetMonth)
         }
     }
 
-    suspend fun getByMonthandDay(targetMonth: Month, targetDay: Byte): SportItem {
+    suspend fun get(targetMonth: Month, targetDay: Byte): SportItem {
         return withContext(Dispatchers.IO) {
-            return@withContext dao.getByMonthAndDay(targetMonth, targetDay)
+            return@withContext sportDao.getByMonthAndDay(targetMonth, targetDay)
         }
     }
 
     suspend fun isEmpty(): Boolean {
         return withContext(Dispatchers.IO) {
-            return@withContext dao.isEmpty()
+            return@withContext sportDao.isEmpty()
         }
     }
 
     suspend fun delete(item: SportItem) {
         return withContext(Dispatchers.IO) {
-            dao.delete(item)
+            sportDao.delete(item)
         }
     }
 
     suspend fun insert(item: SportItem) {
         return withContext(Dispatchers.IO) {
-            dao.insert(item)
+            sportDao.insert(item)
         }
     }
 
     suspend fun update(item: SportItem) {
         return withContext(Dispatchers.IO) {
-            dao.update(item)
+            sportDao.update(item)
         }
     }
 

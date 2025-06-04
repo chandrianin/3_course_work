@@ -73,7 +73,6 @@ class SportFragment : Fragment() {
         binding.swipeRefreshLayout.apply {
             setColorSchemeResources(
                 R.color.scores_primary,
-                R.color.scores_transparent,
             )
 
             setProgressBackgroundColorSchemeResource(
