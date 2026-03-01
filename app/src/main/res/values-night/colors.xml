@@ -11,4 +11,8 @@
     <color name="comings_transparent">#996FAA7E</color>
     <color name="button_text">#E6201251</color>
     <color name="refresh_indicator">#242129</color>
+    <color name="visit">#6FAA7E</color>
+    <color name="absence">#DB7B7B</color>
+    <color name="disease">#C8AC7B</color>
+    <color name="future">#A3A3A3</color>
 </resources>

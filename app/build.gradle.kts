@@ -66,6 +66,8 @@ dependencies {
     implementation (libs.kotlinx.coroutines.core)
     implementation (libs.kotlinx.coroutines.android)
 
+    implementation("androidx.security:security-crypto:1.1.0-beta01")
+
     kapt(libs.androidx.room.compiler)
 
     implementation(libs.androidx.core.ktx)

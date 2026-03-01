@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="sportItem"
+            type="com.example.bfuhelper.model.sport.SportItem" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/sport_top_rectangle"
+        android:paddingVertical="12dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="40dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="40dp" />
+
+        <TextView
+            android:id="@+id/day_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="0.75"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            app:formattedDayAndWeekday="@{sportItem}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/status_text_view"
+            app:layout_constraintStart_toStartOf="@+id/guide_start"
+            app:layout_constraintTop_toTopOf="parent"
+            app:statusTextColor='@{sportItem.status}'
+            tools:text="01\nДд" />
+
+        <TextView
+            android:id="@+id/status_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:lineSpacingMultiplier="0.75"
+
+            android:singleLine="false"
+            android:maxLines="2"
+
+            android:layout_marginStart="10dp"
+            android:textAlignment="textStart"
+
+            style="@style/item_text_status"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guide_end"
+            app:layout_constraintStart_toEndOf="@+id/day_text_view"
+            app:layout_constraintTop_toTopOf="parent"
+            app:statusText="@{sportItem.status}"
+            app:statusTextColor='@{sportItem.status}'
+            tools:text="Присутствовал" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

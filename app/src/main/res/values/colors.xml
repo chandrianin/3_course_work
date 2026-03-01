@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="dark">#141318</color>
-    <color name="light">#FCF8FF</color>
+    <color name="light">#E6FCF8FF</color>
     <color name="status_bar">#4E36C0</color>
     <color name="primary">#21145F</color>
     <color name="surface">#F1ECF4</color>
@@ -11,4 +11,8 @@
     <color name="comings_transparent">#992A621E</color>
     <color name="button_text">#9586F4</color>
     <color name="refresh_indicator">#FCF8FF</color>
+    <color name="visit">#70933D</color>
+    <color name="absence">#863333</color>
+    <color name="disease">#997E51</color>
+    <color name="future">#676767</color>
 </resources>

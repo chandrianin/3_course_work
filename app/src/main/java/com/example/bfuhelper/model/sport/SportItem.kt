@@ -32,7 +32,4 @@ data class SportItem(
     var day: Byte,
 
     var status: Status,
-
-//    @PrimaryKey(autoGenerate = true)
-//    val dayID: Long = 0
 )

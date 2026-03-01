@@ -7,4 +7,39 @@
     <string name="scores">Баллы</string>
     <string name="comings">Посещения</string>
     <string name="sport_canvas_button">Подробнее</string>
+    <string name="status_visit_text">Присутствовал</string>
+    <string name="status_absence_text">Отсутствовал</string>
+    <string name="status_disease_text">Уважительная\nпричина</string>
+    <string name="status_future_text">Будущее занятие</string>
+    <string name="status_default_text">Ошибка</string>
+    <string name="lms" translatable="false">LMS</string>
+    <string name="sport_events">Мероприятия</string>
+    <string name="physical">Физические\nупражнения</string>
+    <string name="control">Контрольные\nупражнения</string>
+    <string name="log_in">Авторизация</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="data_policy">Политика обработки\nперсональных данных</string>
+    <string name="login_button">Войти</string>
+    <string name="month_jan">Январь</string>
+    <string name="month_feb">Февраль</string>
+    <string name="month_march">Март</string>
+    <string name="month_april">Апрель</string>
+    <string name="month_may">Май</string>
+    <string name="month_june">Июнь</string>
+    <string name="month_july">Июль</string>
+    <string name="month_august">Август</string>
+    <string name="month_sept">Сентябрь</string>
+    <string name="month_oct">Октябрь</string>
+    <string name="month_nov">Ноябрь</string>
+    <string name="month_dec">Декабрь</string>
+    <string-array name="weekdays_short">
+        <item>Вс</item>
+        <item>Пн</item>
+        <item>Вт</item>
+        <item>Ср</item>
+        <item>Чт</item>
+        <item>Пт</item>
+        <item>Сб</item>
+    </string-array>
 </resources>

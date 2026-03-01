@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="20dp"
+    android:background="@drawable/sport_top_rectangle"
+    android:gravity="center"
+    android:maxWidth="360dp"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="15dp">
+
+    <TextView
+        android:id="@+id/login_dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:gravity="center"
+        android:text="@string/log_in"
+        android:textColor="@color/dark"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/username_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/dialog_element_background"
+        android:hint="@string/login"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="11dp"
+        android:textColor="@color/light"
+        android:textColorHint="@color/light" />
+
+    <EditText
+        android:id="@+id/password_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_element_background"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="11dp"
+        android:textColor="@color/light"
+        android:textColorHint="@color/light" />
+
+    <TextView
+        android:id="@+id/external_link_textview_manual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingVertical="4dp"
+        android:text="@string/data_policy"
+        android:gravity="center"
+        android:layout_marginVertical="3dp"
+        android:textColor="@color/primary"
+        android:textSize="14sp" />
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button"
+        android:textStyle="bold" />
+
+
+</LinearLayout>

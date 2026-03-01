@@ -8,4 +8,38 @@
     <string name="scores">Scores</string>
     <string name="comings">Comings</string>
     <string name="sport_canvas_button">More</string>
+    <string name="status_visit_text">Visited</string>
+    <string name="status_absence_text">Missing</string>
+    <string name="status_disease_text">For valid\nreasons</string>
+    <string name="status_future_text">Future class</string>
+    <string name="status_default_text">Error</string>
+    <string name="sport_events">Sport events</string>
+    <string name="physical">Exercise</string>
+    <string name="control">Control tasks</string>
+    <string name="log_in">Authorization</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="data_policy">Personal data\nprocessing policy</string>
+    <string name="login_button">Log in</string>
+    <string name="month_jan">"January "</string>
+    <string name="month_feb">"February "</string>
+    <string name="month_march">March</string>
+    <string name="month_april">April</string>
+    <string name="month_may">May</string>
+    <string name="month_june">June</string>
+    <string name="month_july">July</string>
+    <string name="month_august">August</string>
+    <string name="month_sept">September</string>
+    <string name="month_oct">October</string>
+    <string name="month_nov">November</string>
+    <string name="month_dec">December</string>
+    <string-array name="weekdays_short">
+        <item>Sun</item>
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+    </string-array>
 </resources>
