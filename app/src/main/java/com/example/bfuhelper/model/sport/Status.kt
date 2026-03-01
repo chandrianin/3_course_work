@@ -1,24 +1,24 @@
 package com.example.bfuhelper.model.sport
 
-enum class Status : EnumsText {
+enum class Status {
     Absence {
-        override fun text(): String {
-            return "Прогул"
+        override fun toString(): String {
+            return "Отсутствовал"
         }
     },
     Visit {
-        override fun text(): String {
+        override fun toString(): String {
             return "Присутствовал"
         }
     },
     Disease {
-        override fun text(): String {
-            return "Отсутствовал по болезни"
+        override fun toString(): String {
+            return "Уважительная\nпричина"
         }
 
     },
     Future {
-        override fun text(): String {
+        override fun toString(): String {
             return "Будущее занятие"
         }
     }

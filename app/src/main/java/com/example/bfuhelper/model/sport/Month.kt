@@ -1,64 +1,44 @@
 package com.example.bfuhelper.model.sport
 
-enum class Month : EnumsText {
-    Jan {
-        override fun text(): String {
-            return "Январь"
-        }
-    },
-    Feb {
-        override fun text(): String {
-            return "Февраль"
-        }
-    },
-    March {
-        override fun text(): String {
-            return "Март"
-        }
-    },
-    April {
-        override fun text(): String {
-            return "Апрель"
-        }
-    },
-    May {
-        override fun text(): String {
-            return "Май"
-        }
-    },
-    June {
-        override fun text(): String {
-            return "Июнь"
-        }
-    },
-    July {
-        override fun text(): String {
-            return "Июль"
-        }
-    },
-    August {
-        override fun text(): String {
-            return "Август"
-        }
-    },
-    Sept {
-        override fun text(): String {
-            return "Сентябрь"
-        }
-    },
-    Oct {
-        override fun text(): String {
-            return "Октябрь"
-        }
-    },
-    Nov {
-        override fun text(): String {
-            return "Ноябрь"
-        }
-    },
-    Dec {
-        override fun text(): String {
-            return "Декабрь"
-        }
+import android.content.Context
+import androidx.annotation.StringRes
+import com.example.bfuhelper.R
+
+enum class Month(@StringRes val displayNameResId: Int) {
+    Jan(R.string.month_jan),
+    Feb(R.string.month_feb),
+    March(R.string.month_march),
+    April(R.string.month_april),
+    May(R.string.month_may),
+    June(R.string.month_june),
+    July(R.string.month_july),
+    August(R.string.month_august),
+    Sept(R.string.month_sept),
+    Oct(R.string.month_oct),
+    Nov(R.string.month_nov),
+    Dec(R.string.month_dec);
+
+    /**
+     * Возвращает локализованное название месяца, используя предоставленный контекст.
+     */
+    fun getDisplayName(context: Context): String {
+        return context.getString(displayNameResId)
     }
+
+//    override fun toString(): String {
+//        return when (this) {
+//            Jan -> "Январь"
+//            Feb -> "Февраль"
+//            March -> "Март"
+//            April -> "Апрель"
+//            May -> "Май"
+//            June -> "Июнь"
+//            July -> "Июль"
+//            August -> "Август"
+//            Sept -> "Сентябрь"
+//            Oct -> "Октябрь"
+//            Nov -> "Ноябрь"
+//            Dec -> "Декабрь"
+//        }
+//    }
 }

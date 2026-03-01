@@ -35,8 +35,38 @@
 
     <style name="sport_canvas_button" parent="Theme.BFUHelper">
         <item name="android:backgroundTint">@color/scores_primary</item>
-        <item name="android:textColor">@color/button_text</item>
+        <item name="android:textColor">@color/light</item>
         <item name="android:textSize">16sp</item>
         <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="item_text_status">
+        <item name="android:textSize">23sp</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="month_text_selected" parent="headline">
+        <item name="fontFamily">@font/roboto_bold</item>
+    </style>
+
+    <style name="month_text_unselected">
+        <item name="android:textSize">23sp</item>
+        <item name="fontFamily">@font/roboto_bold</item>
+        <item name="android:textColor">@color/scores_transparent</item>
+        <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <style name="details_element" parent="Theme.BFUHelper">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginRight">2dp</item>
+        <item name="android:layout_marginLeft">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingVertical">11dp</item>
+        <item name="android:textColor">@color/light</item>
+        <item name="android:background">@drawable/dialog_element_background</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">21sp</item>
+
     </style>
 </resources>
